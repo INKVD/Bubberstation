@@ -19158,10 +19158,6 @@
 "eXL" = (
 /turf/open/floor/carpet/donk,
 /area/station/command/heads_quarters/qm)
-"eYn" = (
-/obj/effect/mapping_helpers/airlock/access/all/medical/cmo,
-/turf/open/openspace,
-/area/station/hallway/primary/tram/center)
 "eYs" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/white/line{
@@ -69381,6 +69377,18 @@
 /obj/machinery/door/firedoor,
 /turf/open/floor/iron,
 /area/station/command/teleporter)
+"xzF" = (
+/mob/living/simple_animal/pet/cat{
+	desc = "Their name is pancake! They're very social, snuggly, and a bit dumb... But nonetheless, a good cat!";
+	icon = 'modular_zubbers/icons/mob/simple/pets.dmi';
+	icon_dead = "pancake_dead";
+	icon_living = "pancake";
+	icon_state = "pancake";
+	minbodytemp = 0;
+	name = "Pancake"
+	},
+/turf/open/floor/carpet,
+/area/station/medical/psychology)
 "xzI" = (
 /obj/machinery/vending/games,
 /obj/structure/sign/clock/directional/north,
@@ -170715,7 +170723,7 @@ rSo
 aHA
 fnb
 fWX
-eYn
+eSz
 eSz
 qNI
 xKf
@@ -172267,7 +172275,7 @@ rzj
 qkh
 bFq
 rcD
-nPe
+xzF
 nPe
 nPe
 msF
