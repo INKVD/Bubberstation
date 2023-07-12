@@ -1,6 +1,6 @@
 import { Fragment } from 'inferno';
 import { useBackend } from '../backend';
-import { Button, LabeledList, NoticeBox, Section, Box, ProgressBar } from '../components';
+import { Button, LabeledList, NoticeBox, Section, ProgressBar } from '../components';
 
 export const Cloning = props => {
   const { act, data } = useBackend(props);
