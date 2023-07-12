@@ -6,4 +6,4 @@
 	medical_record_text = "Patient is a DNC, and cannot be cloned conventionally."
 	value = 0
 	mob_trait = TRAIT_DNC
-	icon = FA_ICON_SKULL_CROSSBONES
+	icon = FA_ICON_BIOHAZARD
