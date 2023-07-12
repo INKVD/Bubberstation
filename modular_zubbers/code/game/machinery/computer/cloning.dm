@@ -47,7 +47,7 @@
 		if(disk)
 			eject_disk(user)
 		disk = W
-		to_chat(user, "<span class='notice'>You insert [W].</span>")
+		to_chat(user, span_notice("You insert [W].</span>"))
 		playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, FALSE)
 
 	else if(W.tool_behaviour == TOOL_MULTITOOL)
@@ -212,7 +212,7 @@
 
 /obj/item/disk/cloning
 	name = "DNA cloning scan-disk"
-	desc = "A disk with an inbuilt DNA scanner. It can be placed onto an organism to store its genetic sequence, and then used to clone said organism."
+	desc = "A disk with an inbuilt DNA scanner. It can be used to scan an organism to store its genetic sequence, and then used to clone said organism."
 	icon = 'modular_zubbers/icons/obj/module.dmi'
 	icon_state = "clonedisk"
 	var/datum/dna/stored_dna = null
@@ -223,15 +223,20 @@
 		return FALSE
 	if(iscarbon(target))
 		var/mob/living/carbon/C = target
-		if(!C.has_dna())
-			to_chat(user, "<span class='warning'>Subject does not have a valid DNA sequence to analyze.</span>")
+		user.visible_message(span_warning("[user] begins to scan [C] with [src]."), span_notice("You begin to scan [C] with [src]."))
+		if(do_after(user, 3 SECONDS))
+			if(HAS_TRAIT(C, TRAIT_DNC) || C.get_quirk(/datum/quirk/body_purist))
+				to_chat(user, span_warning("Subject has no Cortical Stack."))
+				return FALSE
+			if(!C.has_dna())
+				to_chat(user, span_warning("Subject has no DNA."))
+				return FALSE
+			if(HAS_TRAIT(C, TRAIT_BADDNA))
+				to_chat(user, span_warning("Subject's DNA is too damaged to analyze."))
+				return FALSE
+			to_chat(user, span_notice("DNA scan successful."))
+			store_dna(C.dna)
 			return FALSE
-		if(HAS_TRAIT(C, TRAIT_BADDNA))
-			to_chat(user, "<span class='warning'>Subject's DNA is too damaged to analyze.</span>")
-			return FALSE
-		to_chat(user, "<span class='notice'>DNA scan successful.</span>")
-		store_dna(C.dna)
-		return FALSE
 
 /obj/item/disk/cloning/proc/store_dna(datum/dna/dna)
 	if(!stored_dna)

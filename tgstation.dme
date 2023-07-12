@@ -7143,6 +7143,7 @@
 #include "modular_zubbers\code\datums\ert.dm"
 #include "modular_zubbers\code\datums\ai_laws\laws_antagonistic.dm"
 #include "modular_zubbers\code\datums\bubber_quirks\hydrophilic.dm"
+#include "modular_zubbers\code\datums\bubber_quirks\neutral.dm"
 #include "modular_zubbers\code\datums\id_trim\jobs.dm"
 #include "modular_zubbers\code\game\area\areas\station.dm"
 #include "modular_zubbers\code\game\machinery\cloning.dm"

@@ -74,7 +74,7 @@
 	clone.set_cloned_appearance()
 	clone.updateappearance(mutcolor_update=TRUE)
 	clone.domutcheck()
-	visible_message("<span class='notice'>[clone.real_name] steps out of [src]!</span>")
+	visible_message(span_notice("[clone.real_name] steps out of [src]!"))
 	reset()
 
 ///Messily dumps the uncompleted clone, spawning gibs
