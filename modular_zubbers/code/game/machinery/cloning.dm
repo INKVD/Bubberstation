@@ -24,6 +24,7 @@
 	return ..()
 
 /obj/machinery/cloning_pod/RefreshParts()
+	. = ..()
 	growth_speed = 0
 	for(var/obj/item/stock_parts/servo/M in component_parts)
 		growth_speed += M.rating * 0.5
@@ -39,7 +40,7 @@
 
 ///Initializes the clone growth process
 /obj/machinery/cloning_pod/proc/grow_clone(datum/dna/dna)
-	if(!is_operational() || panel_open)
+	if(!is_operational || panel_open)
 		return FALSE
 	growing_dna = new
 	dna.copy_dna(growing_dna)
@@ -50,7 +51,7 @@
 /obj/machinery/cloning_pod/process()
 	if(!cloning)
 		return FALSE
-	if(!is_operational())
+	if(!is_operational)
 		fail_clone()
 	growth_progress += growth_speed
 	if(growth_progress >= growth_required)
