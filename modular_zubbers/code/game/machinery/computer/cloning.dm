@@ -213,6 +213,7 @@
 /obj/item/disk/cloning
 	name = "DNA cloning scan-disk"
 	desc = "A disk with an inbuilt DNA scanner. It can be placed onto an organism to store its genetic sequence, and then used to clone said organism."
+	icon = 'modular_zubbers/icons/obj/module.dmi'
 	icon_state = "clonedisk"
 	var/datum/dna/stored_dna = null
 
