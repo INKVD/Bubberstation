@@ -223,7 +223,7 @@
 		return FALSE
 	if(iscarbon(target))
 		var/mob/living/carbon/C = target
-		user.visible_message(span_warning("[user] begins to scan [C] with [src]."), span_notice("You begin to scan [C] with [src]."))
+		user.visible_message(span_warning("[user] is trying to scan [C] with the [src]."), span_notice("You try to scan [C] with the [src]."))
 		if(do_after(user, 3 SECONDS))
 			if(HAS_TRAIT(C, TRAIT_DNC) || C.get_quirk(/datum/quirk/body_purist))
 				to_chat(user, span_warning("Subject has no Cortical Stack."))
