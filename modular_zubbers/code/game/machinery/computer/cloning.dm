@@ -77,12 +77,10 @@
 	return GLOB.default_state
 
 /obj/machinery/computer/cloning/ui_interact(mob/user, datum/tgui/ui)
-	if(machine_stat & (BROKEN | NOPOWER | MAINT))
-		if(ui)
-			ui.close()
-		return
-
+	. = ..()
 	ui = SStgui.try_update_ui(user, src, ui)
+	if(!is_operational)
+		return
 	if(!ui)
 		ui = new(user, src, "Cloning", name)
 		ui.open()
@@ -98,7 +96,7 @@
 		var/list/disk_dna = list()
 		disk_dna["name"] = disk.stored_dna.real_name
 		disk_dna["species"] = disk.stored_dna.species.name
-		disk_dna["sequence"] = disk.stored_dna.uni_identity
+		disk_dna["sequence"] = disk.stored_dna.unique_identity
 		data["disk"] = disk_dna
 	var/i = 1
 	for(var/X in pods)
@@ -106,14 +104,14 @@
 		var/area/pod_area = get_area(CP)
 		var/list/cloning_pod = list()
 		cloning_pod["area"] = pod_area.name
-		cloning_pod["operational"] = CP.is_operational() && !CP.panel_open
+		cloning_pod["operational"] = CP.is_operational && !CP.panel_open
 		cloning_pod["cloning"] = CP.cloning
 		if(cloning_pod["cloning"])
 			cloning_pod["progress"] = round((CP.growth_progress / CP.growth_required) * 100)
 			var/list/cloning_dna = list()
 			cloning_dna["name"] = CP.growing_dna.real_name
 			cloning_dna["species"] = CP.growing_dna.species.name
-			cloning_dna["sequence"] = CP.growing_dna.uni_identity
+			cloning_dna["sequence"] = CP.growing_dna.unique_identity
 			cloning_pod["cloning_dna"] = cloning_dna
 		cloning_pod["index"] = i
 		cloning_pods += list(cloning_pod)
@@ -126,7 +124,7 @@
 		var/list/this_dna = list()
 		this_dna["name"] = dna_datum.real_name
 		this_dna["species"] = dna_datum.species.name
-		this_dna["sequence"] = dna_datum.uni_identity
+		this_dna["sequence"] = dna_datum.unique_identity
 		this_dna["index"] = i
 		dna_list += list(this_dna)
 		i++
@@ -137,7 +135,7 @@
 		var/list/active_dna = list()
 		active_dna["name"] = dna_bank[selected_dna].real_name
 		active_dna["species"] = dna_bank[selected_dna].species.name
-		active_dna["sequence"] = dna_bank[selected_dna].uni_identity
+		active_dna["sequence"] = dna_bank[selected_dna].unique_identity
 		active_dna["index"] = selected_dna
 		data["selected_dna"] = active_dna
 	return data

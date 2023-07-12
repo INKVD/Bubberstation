@@ -25,7 +25,7 @@
 
 /obj/machinery/cloning_pod/RefreshParts()
 	growth_speed = 0
-	for(var/obj/item/stock_parts/manipulator/M in component_parts)
+	for(var/obj/item/stock_parts/servo/M in component_parts)
 		growth_speed += M.rating * 0.5
 	for(var/obj/item/stock_parts/micro_laser/M in component_parts)
 		growth_speed += M.rating * 0.5
