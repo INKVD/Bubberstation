@@ -1344,6 +1344,11 @@
 		"dnascanner",
 		"scan_console",
 		"self_actualization_device", // SKYRAT EDIT ADDITION: Added the Self-Actualization Device
+		// BUBBER EDIT ADDITION START: Re-added cloning
+		"cloning_pod",
+		"cloning_console",
+		"clone_disk",
+		// BUBBER EDIT ADDITION END: Re-added cloning
 	)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 
