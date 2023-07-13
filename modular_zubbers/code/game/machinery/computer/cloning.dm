@@ -163,6 +163,8 @@
 		if("save_dna")
 			if(!disk)
 				return TRUE
+			if(LAZYFIND(dna_bank, disk.stored_dna)) // If the DNA is already saved to the DNA bank, don't save it again.
+				return TRUE
 			var/datum/dna/new_dna = new
 			disk.stored_dna.copy_dna(new_dna)
 			dna_bank += new_dna
@@ -233,6 +235,9 @@
 				return FALSE
 			if(HAS_TRAIT(C, TRAIT_BADDNA))
 				to_chat(user, span_warning("Subject's DNA is too damaged to analyze."))
+				return FALSE
+			if(stored_dna == C.dna)
+				to_chat(user, span_warning("Subject's DNA is already stored on disk."))
 				return FALSE
 			to_chat(user, span_notice("DNA scan successful."))
 			store_dna(C.dna)
