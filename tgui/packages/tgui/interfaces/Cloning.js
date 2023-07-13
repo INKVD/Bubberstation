@@ -15,6 +15,7 @@ export const Cloning = (props, context) => {
 
 export const CloningContent = (props, context) => {
   const { act, data } = useBackend(context);
+  const disabled = pod.biomass < 150;
   const {
     menu,
     disk,
@@ -161,7 +162,7 @@ export const CloningContent = (props, context) => {
                     <Button
                       icon={'list'}
                       content={'Clone selected record'}
-                      disabled={!has_selected_dna}
+                      disabled={!has_selected_dna || disabled}
                       onClick={() =>
                         act('clone_selected', {
                           index: pod.index,
@@ -172,6 +173,7 @@ export const CloningContent = (props, context) => {
                       <Button
                         icon={'list'}
                         content={'Clone from disk'}
+                        disabled={disabled}
                         onClick={() =>
                           act('clone_disk', {
                             index: pod.index,
@@ -179,6 +181,14 @@ export const CloningContent = (props, context) => {
                         }
                       />
                     ) : null}
+                    <LabeledList.Item label="Biomass">
+                      <ProgressBar
+                        value={pod.biomass}
+                        minValue={0}
+                        maxValue={500}
+                        color="green"
+                      />
+                    </LabeledList.Item>
                   </Fragment>
                 )
               ) : (

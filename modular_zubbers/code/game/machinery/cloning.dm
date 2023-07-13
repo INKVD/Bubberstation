@@ -1,3 +1,6 @@
+#define CLONE_BIOMASS 150
+#define BIOMASS_CHUNK 50
+
 /obj/machinery/cloning_pod
 	name = "cloning pod"
 	desc = "A pod made for cloning humanoid bodies."
@@ -14,6 +17,9 @@
 
 	var/growth_speed = 1 ///Clone growth speed multiplier
 
+	var/biomass = 0 ///Biomass required for clone growth.
+	var/resource_efficiency = 1 ///Improve parts to use less biomass.
+
 /obj/machinery/cloning_pod/Destroy()
 	if(cloning)
 		fail_clone()
@@ -26,10 +32,14 @@
 /obj/machinery/cloning_pod/RefreshParts()
 	. = ..()
 	growth_speed = 0
+	var/T = 0
 	for(var/obj/item/stock_parts/servo/M in component_parts)
 		growth_speed += M.rating * 0.5
+		T += M.rating
 	for(var/obj/item/stock_parts/micro_laser/M in component_parts)
 		growth_speed += M.rating * 0.5
+	resource_efficiency = T/2
+	T = 0
 
 /obj/machinery/cloning_pod/update_icon_state()
 	. = ..()
@@ -74,7 +84,11 @@
 	clone.set_cloned_appearance()
 	clone.updateappearance(mutcolor_update=TRUE)
 	clone.domutcheck()
-	visible_message(span_notice("[clone.real_name] steps out of [src]!"))
+	visible_message(span_notice("[clone.real_name] steps out of \the [src]!"))
+	if(biomass > 0)
+		biomass -= CLONE_BIOMASS/resource_efficiency //Improve parts to use less biomass
+	else
+		biomass = 0
 	reset()
 
 ///Messily dumps the uncompleted clone, spawning gibs
@@ -87,7 +101,19 @@
 		if(default_deconstruction_screwdriver(user, "[icon_state]_maintenance", "[initial(icon_state)]",W))
 			return
 
+	var/turf/drop_location = drop_location()
 	if(default_deconstruction_crowbar(W))
+		if(biomass > 0)
+			drop_location.visible_message(span_warning("Biomass spills from \the [src]'s biomass tank!"))
+			playsound(drop_location, 'sound/effects/slosh.ogg', 25, vary = TRUE)
+			new /obj/effect/decal/cleanable/greenglow(drop_location)
+		return
+
+	if(istype(W, /obj/item/food/meat/slab/synthmeat))
+		playsound(src, 'sound/machines/juicer.ogg', 30, 1)
+		to_chat(user, span_notice("\The [src] processes \the [W]."))
+		biomass += BIOMASS_CHUNK
+		qdel(W)
 		return
 
 	if(W.tool_behaviour == TOOL_MULTITOOL)

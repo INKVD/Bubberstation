@@ -38,6 +38,10 @@
 	var/obj/machinery/cloning_pod/cloner = pods[pod_index]
 	if(QDELETED(cloner))
 		return
+	if(cloner.biomass < CLONE_BIOMASS)
+		cloner.say("Error: Not enough biomass.")
+		playsound(src, 'sound/machines/buzz-two.ogg', 30, TRUE)
+		return
 	cloner.grow_clone(dna_to_clone)
 
 /obj/machinery/computer/cloning/attackby(obj/item/W, mob/user, params)
@@ -106,6 +110,7 @@
 		cloning_pod["area"] = pod_area.name
 		cloning_pod["operational"] = CP.is_operational && !CP.panel_open
 		cloning_pod["cloning"] = CP.cloning
+		cloning_pod["biomass"] = CP.biomass
 		if(cloning_pod["cloning"])
 			cloning_pod["progress"] = round((CP.growth_progress / CP.growth_required) * 100)
 			var/list/cloning_dna = list()
@@ -225,7 +230,7 @@
 		return FALSE
 	if(iscarbon(target))
 		var/mob/living/carbon/C = target
-		user.visible_message(span_warning("[user] is trying to scan [C] with the [src]."), span_notice("You try to scan [C] with the [src]."))
+		user.visible_message(span_warning("[user] is trying to scan [C] with \the [src]."), span_notice("You try to scan [C] with \the [src]."))
 		if(do_after(user, 3 SECONDS))
 			if(HAS_TRAIT(C, TRAIT_DNC) || C.get_quirk(/datum/quirk/body_purist))
 				to_chat(user, span_warning("Subject has no Cortical Stack."))
