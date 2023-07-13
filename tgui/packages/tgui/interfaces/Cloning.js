@@ -1,9 +1,20 @@
 import { Fragment } from 'inferno';
 import { useBackend } from '../backend';
 import { Button, LabeledList, NoticeBox, Section, ProgressBar } from '../components';
+import { Window } from '../layouts';
 
-export const Cloning = (props) => {
-  const { act, data } = useBackend(props);
+export const Cloning = (props, context) => {
+  return (
+    <Window width={800} height={700}>
+      <Window.Content scrollable>
+        <CloningContent />
+      </Window.Content>
+    </Window>
+  );
+};
+
+export const CloningContent = (props, context) => {
+  const { act, data } = useBackend(context);
   const {
     menu,
     disk,
