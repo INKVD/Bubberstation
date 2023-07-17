@@ -24379,7 +24379,8 @@
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "AI Chamber Entrance Shutters";
-	name = "AI Chamber Entrance Shutters"
+	name = "AI Chamber Entrance Shutters";
+	dir = 8
 	},
 /obj/machinery/flasher{
 	id = "AI";
@@ -26977,7 +26978,8 @@
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "AI Core shutters";
-	name = "AI Core Shutters"
+	name = "AI Core Shutters";
+	dir = 4
 	},
 /turf/open/floor/plating,
 /area/station/ai_monitored/turret_protected/ai)
@@ -62803,19 +62805,20 @@
 /area/station/service/bar/lower)
 "xRi" = (
 /obj/structure/table/reinforced,
+/obj/item/paper,
 /obj/machinery/door/window/right/directional/east{
 	name = "Brig Reception Window"
 	},
-/obj/machinery/door/window/brigdoor/left/directional/west{
-	name = "Brig Control Desk";
-	req_access = list("armory")
-	},
-/obj/item/paper,
 /obj/machinery/door/firedoor,
 /obj/item/storage/fancy/donut_box,
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "briglockdown";
-	name = "Warden Desk Shutters"
+	name = "Warden Desk Shutters";
+	dir = 4
+	},
+/obj/machinery/door/window/brigdoor/left/directional/west{
+	name = "Brig Control Desk";
+	req_access = list("armory")
 	},
 /turf/open/floor/iron/showroomfloor,
 /area/station/security/warden)
